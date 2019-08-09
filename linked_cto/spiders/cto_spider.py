@@ -1,10 +1,15 @@
 import scrapy
-
+from selenium import webdriver
 
 class CTOSpider(scrapy.Spider):
     name = "cto"
 
+    def __init__(self):
+        self.log("inside __init__ method")
+        self.driver = webdriver.Chrome('/home/paf/Downloads/chromedriver')
+
     def start_requests(self):
+        self.log("inside start_requests method")
         urls = []
 	for page in xrange(1,101):
         	urls.append("https://www.linkedin.com/search/results/people/?facetGeoRegion=%5B%22us%3A0%22%5D&keywords=Chief%20Transformation%20Officer&origin=FACETED_SEARCH&page="+str(page))
@@ -13,4 +18,5 @@ class CTOSpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
+        self.log("inside parse method")
 	self.log(response.url)
