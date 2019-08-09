@@ -1,5 +1,7 @@
 import scrapy
 from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 '''
 
@@ -17,6 +19,7 @@ class CTOSpider(scrapy.Spider):
         self.log("inside __init__ method")
         self.driver = webdriver.Chrome('/home/paf/Downloads/chromedriver')
         self.driver.fullscreen_window()
+        self.login(user, password)
 
     def start_requests(self):
         self.log("inside start_requests method")
@@ -30,3 +33,14 @@ class CTOSpider(scrapy.Spider):
     def parse(self, response):
         self.log("inside parse method")
 	self.log(response.url)
+    
+
+    def login(self, user, password):
+        self.log("starting login")
+        self.driver.get("https://www.linkedin.com/login")
+
+        self.driver.find_element_by_id("username").send_keys(user)
+        self.driver.find_element_by_id("password").send_keys(password)
+
+        self.driver.find_element_by_tag_name("button").click()
+
