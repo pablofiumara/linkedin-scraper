@@ -1,12 +1,22 @@
 import scrapy
 from selenium import webdriver
 
+'''
+
+run with
+
+scrapy crawl cto -a user=test -a password=123
+
+'''
+
+
 class CTOSpider(scrapy.Spider):
     name = "cto"
 
-    def __init__(self):
+    def __init__(self, user,password):
         self.log("inside __init__ method")
         self.driver = webdriver.Chrome('/home/paf/Downloads/chromedriver')
+        self.driver.fullscreen_window()
 
     def start_requests(self):
         self.log("inside start_requests method")
