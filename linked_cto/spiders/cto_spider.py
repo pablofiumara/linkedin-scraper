@@ -40,6 +40,7 @@ class CTOSpider(scrapy.Spider):
         self.log("response request url: " + response.request.url)
         self.scroll_down()
         self.log("finished scrolling down")
+        search_result = self.get_search_result_list()
     
 
     def login(self, user, password):
@@ -54,3 +55,9 @@ class CTOSpider(scrapy.Spider):
     def scroll_down(self):
         self.log("scrolling down")
         self.driver.find_element_by_tag_name('html').send_keys(Keys.END)
+
+
+    def get_search_result_list(self):
+       search_result = self.driver.find_element_by_class_name("search-results__list").find_elements_by_xpath(".//li")
+       self.log(len(search_result))
+       return search_result
