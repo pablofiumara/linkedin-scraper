@@ -20,6 +20,7 @@ class CTOSpider(scrapy.Spider):
         self.driver = webdriver.Chrome('/home/paf/Downloads/chromedriver')
         self.driver.fullscreen_window()
         self.login(user, password)
+        self.driver.get("https://www.linkedin.com/search/results/people/?facetGeoRegion=%5B%22us%3A0%22%5D&keywords=Chief%20Transformation%20Officer&origin=FACETED_SEARCH")
 
     def start_requests(self):
         self.log("inside start_requests method")
