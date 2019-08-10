@@ -8,7 +8,7 @@ from selenium.webdriver.common.keys import Keys
 
 run with
 
-scrapy crawl cto -a user=test -a password=123
+scrapy crawl cto -a user=test -a password=123 -a end_page=5
 
 '''
 
@@ -16,9 +16,11 @@ scrapy crawl cto -a user=test -a password=123
 class CTOSpider(scrapy.Spider):
     name = "cto"
 
-    def __init__(self, user,password):
+    def __init__(self, user,password, end_page):
         self.logger.info("inside __init__ method")
+        self.logger.info("end_page : " +end_page)
         self.driver = webdriver.Chrome('/home/paf/Downloads/chromedriver')
+        self.end_page = end_page
         self.driver.fullscreen_window()
         self.login(user, password)
         self.driver.get("https://www.linkedin.com/search/results/people/?facetGeoRegion=%5B%22us%3A0%22%5D&keywords=Chief%20Transformation%20Officer&origin=FACETED_SEARCH")
@@ -26,7 +28,7 @@ class CTOSpider(scrapy.Spider):
     def start_requests(self):
         self.logger.info("inside start_requests method")
         urls = []
-	for page in xrange(1,101):
+	for page in xrange(1,int(self.end_page)):
         	urls.append("https://www.linkedin.com/search/results/people/?facetGeoRegion=%5B%22us%3A0%22%5D&keywords=Chief%20Transformation%20Officer&origin=FACETED_SEARCH&page="+str(page))
 
         for url in urls:
