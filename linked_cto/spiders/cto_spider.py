@@ -2,6 +2,7 @@ import scrapy
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 
 '''
 
@@ -37,6 +38,8 @@ class CTOSpider(scrapy.Spider):
         self.log("response url: " + url )
         self.driver.get(url)
         self.log("response request url: " + response.request.url)
+        self.scroll_down()
+        self.log("finished scrolling down")
     
 
     def login(self, user, password):
@@ -48,3 +51,6 @@ class CTOSpider(scrapy.Spider):
 
         self.driver.find_element_by_tag_name("button").click()
 
+    def scroll_down(self):
+        self.log("scrolling down")
+        self.driver.find_element_by_tag_name('html').send_keys(Keys.END)
