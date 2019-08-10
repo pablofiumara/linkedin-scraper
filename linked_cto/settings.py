@@ -15,6 +15,8 @@ SPIDER_MODULES = ['linked_cto.spiders']
 NEWSPIDER_MODULE = 'linked_cto.spiders'
 
 
+#LOG_LEVEL='INFO'
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'linked_cto (+http://www.yourdomain.com)'
 
