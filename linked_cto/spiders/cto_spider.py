@@ -33,7 +33,10 @@ class CTOSpider(scrapy.Spider):
 
     def parse(self, response):
         self.log("inside parse method")
-	self.log(response.url)
+        url = response.url
+        self.log("response url: " + url )
+        self.driver.get(url)
+        self.log("response request url: " + response.request.url)
     
 
     def login(self, user, password):
